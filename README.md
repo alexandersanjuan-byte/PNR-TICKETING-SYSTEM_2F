@@ -62,6 +62,30 @@ This system provides an efficient way to:
   - Display sorted history feature
 - **Feature Supported**: Organized ticket viewing
 
+# File Handling Used
+## Purpose
+Save and load ticket data so information is not lost when the application closes.
+
+## Two Main Functions
+1. Save Function - saveToFile()
+Saves all tickets to a file called tickets.dat
+Runs automatically when:
+A new ticket is created
+A ticket is cancelled
+User exits the application
+Creates file if it doesn't exist
+
+3. Load Function - loadFromFile()
+Loads all saved tickets from tickets.dat when application starts
+Restores all previous ticket data to memory
+If file doesn't exist, starts with empty ticket list
+File Details
+File Name: tickets.dat
+File Type: Binary file (compact and fast)
+Location: Same folder as the program
+Auto-created: Yes (first time a ticket is saved)
+
+
 ## How to Compile and Run
 
 ### Prerequisites
