@@ -1,40 +1,81 @@
-# PNR-TICKETING-SYSTEM_2F
-PNR Ticketing System is a console-based railway ticketing system developed using the C programming language. It is designed for use by train personnel, such as ticket tellers and onboard staff, to efficiently handle commuter transactions.
+# PNR Train Ticketing System
 
-## Data Structures & Algorithms
+## Overview
+The PNR Train Ticketing System is a console-based application designed to manage train ticket bookings and operations for the Philippine National Railways (PNR). The system allows users to view schedules, issue tickets, cancel tickets, inspect ticket details, and view ticket history with various filtering and sorting options.It is designed for use by train personnel, such as ticket tellers and onboard staff, to efficiently handle commuter transactions.
 
-## Data Structure
+### Purpose
+This system provides an efficient way to:
+- Issue train tickets for passengers
+- Manage ticket operations and history
+- Track ticket status (Confirmed or Cancelled)
+- Sort and filter ticket records
+- Store ticket information persistently
 
-Data Structure | Description
-Array      | Used in stations[MAX_STATIONS] to store station names, base fares, and schedules (southbound and northbound trips). This allows fast indexed access when displaying schedules and computing fares.
-Linked-List  | Used in Ticket *ticketHead where each ticket is dynamically created and linked using next. This supports adding tickets (issue), deleting/canceling tickets, and traversing all records.
-Structs | Organizes system data into structured formats for stations and passenger ticket information (name, route, fare, status, etc.). 
+## Data Structures Used
 
-## Algorithm
+### 1. **Arrays**
+- **Purpose**: Store station information (names, fares, and trip schedules)
+- **Features Supported**:
+  - Southbound and Northbound schedule storage
+  - Fixed station list (12 stations maximum)
+  - Quick access to station data by index
 
-Algorithm      | Description                         
-Linear Search  | Searches station names by comparing user input with all stored station names in the array. Used to validate origin and destination inputs.
-Traversal |Traverses all ticket nodes starting from ticketHead to display, search, filter, and update ticket records.      
+### 2. **Linked Lists**
+- **Purpose**: Store ticket records dynamically
+- **Features Supported**:
+  - Dynamic ticket creation without fixed size limit
+  - Easy insertion of new tickets
+  - Efficient deletion of ticket records
+  - Maintains ticket history in order
 
-## Feature
+### 3. **Queue (FIFO - First In, First Out)**
+- **Purpose**: Track pending ticket operations in order of processing
+- **Features Supported**:
+  - Add ticket operations to queue (Enqueue)
+  - Process tickets in the order they were created
+  - Display pending operations
+  - Manage ticket processing workflow
 
+### 4. **Stack (LIFO - Last In, First Out)**
+- **Purpose**: Store operation history for undo functionality
+- **Features Supported**:
+  - Track ticket status changes
+  - Record operation history with timestamps
+  - Undo capability for ticket modifications
+  - Maintain action history log
 
-- **Add Ticket (Issue Ticket)**– Creates a full ticket transaction including passenger details, route selection, schedule assignment, fare computation, discount application, and payment processing.
-- *Cancel Ticket* – Updates ticket status to “Cancelled” using Ticket ID without deleting records from the system.
-- *Inspect Ticket* – Displays complete ticket information including passenger name, origin, destination, schedule, fare, payment method, issue date, and status.
-- *View Ticket History* – Displays all ticket records using linked list traversal, including full history and latest ticket view.
-- *View Schedule* – Displays southbound and northbound train schedules using array-based station data with trip times and fares.
-- *Fare Calculation & Discount System* – Computes fare based on station distance and applies discounts for Student, PWD, and Senior with ID verification.
-- *Payment Processing* – Handles Cash and E-Wallet (GCash/PayMaya), validates payment amount, calculates change, and confirms ticket issuance.
-- *Station Search System* – Validates origin and destination input using linear search in station array.
-- *File Saving & Loading* – Stores ticket records in a binary file (tickets.dat) and reloads them when the system starts for data persistence.
+---
+
+## Algorithms Used
+
+### 1. **Linear Search**
+- **Purpose**: Find stations and tickets quickly
+- **Where Used**:
+  - `searchStation()` - Find station by name
+  - `inspectTicket()` - Find ticket by ID
+  - `cancelTicket()` - Locate ticket to cancel
+
+### 2. **Bubble Sort**
+- **Purpose**: Sort tickets by Ticket ID in ascending order
+- **Where Used**:
+  - `bubbleSortTickets()` - Sort all tickets
+  - Display sorted history feature
+- **Feature Supported**: Organized ticket viewing
 
 ## How to Compile and Run
 
-Requirements
+### Prerequisites
+- C++ Compiler (GCC, MinGW, or Visual Studio)
+- Windows Operating System (uses `windows.h` library)
+- Text Editor or IDE
 
-- GCC-compatible compiler (MinGW included in Dev-C++)
+### Compilation Steps
+
+#### Using GCC/MinGW (Windows):
+```bash
+gcc -o pnr_ticketing "PNR file.cpp"
+
 ### Run
 - Open Dev-C++
-- Select main.c file
+- Select this .cpp file
 - Click Compile & Run or press F11
