@@ -12,7 +12,7 @@ PNR TRAIN TICKETING SYSTEM
 	"This was Emphasized on README.md"
 	
 Citation
-Techno Greek. ìTRAIN TICKET RESERVATION SYSTEM in c PROGRAMMING with SOURCE CODE.î Youtu.be, 2026, youtu.be/fBP8R8rDw9s?si=dzbWH5R1B3uvaSqE. Accessed 10 May 2026.
+Techno Greek. ‚ÄúTRAIN TICKET RESERVATION SYSTEM in c PROGRAMMING with SOURCE CODE.‚Äù Youtu.be, 2026, youtu.be/fBP8R8rDw9s?si=dzbWH5R1B3uvaSqE. Accessed 10 May 2026.
 Gemini Prompt: Create Sample Syntaxes on Time handling for our PNR Train Ticketing System to detect Train Trip Based on Real Time
 */
 #include <stdio.h>
@@ -26,7 +26,7 @@ Gemini Prompt: Create Sample Syntaxes on Time handling for our PNR Train Ticketi
 #define MAX_STATIONS 12
 #define MAX_TRIPS 3
 #define MAX_QUEUE 5
-#define FILE_NAME "tickets.dat"
+#define FILE_NAME "tickets.txt"
 
 //Declare color
 #define RESET 7
