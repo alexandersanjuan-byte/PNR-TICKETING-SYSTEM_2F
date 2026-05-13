@@ -1,105 +1,81 @@
-# PNR Train Ticketing System
+#PNR Train Ticketing System
+##Overview
+The PNR Train Ticketing System is a C-based console application designed to manage commuter transactions for the Philippine National Railways (PNR). This system automates ticket issuance, fare calculation, and real-time trip validation for travel between Naga and Sipocot. It is intended for use by train personnel to efficiently handle passenger data and maintain transaction logs.
 
-## Overview
-The PNR Train Ticketing System is a console-based application designed to manage train ticket bookings and operations for the Philippine National Railways (PNR). The system allows users to view schedules, issue tickets, cancel tickets, inspect ticket details, and view ticket history with various filtering and sorting options.It is designed for use by train personnel, such as ticket tellers and onboard staff, to efficiently handle commuter transactions.
+##Features
+Real-Time Trip Validation: Automatically detects which trains have already departed based on the current system time.
 
-### Purpose
-This system provides an efficient way to:
-- Issue train tickets for passengers
-- Manage ticket operations and history
-- Track ticket status (Confirmed or Cancelled)
-- Sort and filter ticket records
-- Store ticket information persistently
+Dynamic Fare Calculation: Supports Regular and Discount (20% off) pricing with built-in ID verification logic.
 
-## Data Structures Used
+Electronic Payment Integration: Simulates payments via Cash, GCash, or PayMaya.
 
-### 1. **Arrays**
-- **Purpose**: Store station information (names, fares, and trip schedules)
-- **Features Supported**:
-  - Southbound and Northbound schedule storage
-  - Fixed station list (12 stations maximum)
-  - Quick access to station data by index
+Data Persistence: Saves and loads all ticket data using binary file handling to ensure records are not lost.
 
-### 2. **Linked Lists**
-- **Purpose**: Store ticket records dynamically
-- **Features Supported**:
-  - Dynamic ticket creation without fixed size limit
-  - Easy insertion of new tickets
-  - Efficient deletion of ticket records
-  - Maintains ticket history in order
+Transaction Logging: Tracks the five most recent system operations using a Queue system.
 
-### 3. **Queue (FIFO - First In, First Out)**
-- **Purpose**: Track pending ticket operations in order of processing
-- **Features Supported**:
-  - Add ticket operations to queue (Enqueue)
-  - Process tickets in the order they were created
-  - Display pending operations
-  - Manage ticket processing workflow
+###Data Structures Used
+1. 2D Array (Station Database)
+Purpose: Stores the fixed names, base fares, and Northbound/Southbound trip schedules for 12 stations.
 
-### 4. **Stack (LIFO - Last In, First Out)**
-- **Purpose**: Store operation history for undo functionality
-- **Features Supported**:
-  - Track ticket status changes
-  - Record operation history with timestamps
-  - Undo capability for ticket modifications
-  - Maintain action history log
+Implementation: A Station struct utilizes 2D arrays to map specific trip times to their corresponding station indices.
 
----
+2. Singly Linked List (Ticket Records)
+Purpose: Manages the main database of issued tickets dynamically.
 
-## Algorithms Used
+Functions: Allows the system to store an unlimited number of records during runtime without pre-defining a maximum capacity in memory.
 
-### 1. **Linear Search**
-- **Purpose**: Find stations and tickets quickly
-- **Where Used**:
-  - `searchStation()` - Find station by name
-  - `inspectTicket()` - Find ticket by ID
-  - `cancelTicket()` - Locate ticket to cancel
+3. Queue (Transaction Log)
+Purpose: Tracks recent system actions (e.g., TICKET_ISSUED, TICKET_CANCELLED) in chronological order.
 
-### 2. **Bubble Sort**
-- **Purpose**: Sort tickets by Ticket ID in ascending order
-- **Where Used**:
-  - `bubbleSortTickets()` - Sort all tickets
-  - Display sorted history feature
-- **Feature Supported**: Organized ticket viewing
+Implementation: A circular-style array queue limited to 5 entries to provide a quick snapshot of the latest activity.
 
-# File Handling Used
-## Purpose
-Save and load ticket data so information is not lost when the application closes.
+###Algorithms Used
+1. Linear Search
+Purpose: Used to locate a specific ticket within the database.
 
-## Two Main Functions
-1. Save Function - saveToFile()
-Saves all tickets to a file called tickets.dat
-Runs automatically when:
-A new ticket is created
-A ticket is cancelled
-User exits the application
-Creates file if it doesn't exist
+Implementation: The system traverses the Linked List from the head, comparing the user-input ID against each ticket's unique ID until a match is found.
 
-3. Load Function - loadFromFile()
-Loads all saved tickets from tickets.dat when application starts
-Restores all previous ticket data to memory
-If file doesn't exist, starts with empty ticket list
-File Details
-File Name: tickets.dat
-File Type: Binary file (compact and fast)
-Location: Same folder as the program
-Auto-created: Yes (first time a ticket is saved)
+2. Bubble Sort
+Purpose: Organizes the ticket history by Ticket ID in ascending order.
+
+Implementation: When viewing sorted history, the system creates a copy of the list and repeatedly swaps adjacent elements that are out of order.
 
 
-## How to Compile and Run
+##Other Code Features
+###Real-Time Conversion
+Purpose: Converts string-based trip times (e.g., "4:29 AM") into total minutes from midnight for mathematical comparison against the current time.
 
-### Prerequisites
-- C++ Compiler (GCC, MinGW, or Visual Studio)
-- Windows Operating System (uses `windows.h` library)
-- Text Editor or IDE
+###File Handling
+The system utilizes Binary File I/O for high-speed data storage:
 
-### Compilation Steps
+File Name: tickets.txt
 
-#### Using GCC/MinGW (Windows):
-```bash
-gcc -o pnr_ticketing "PNR file.cpp"
+Auto-Save: The system automatically updates the file whenever a ticket is issued or cancelled.
 
-### Run
-- Open Dev-C++
-- Select this .cpp file
-- Click Compile & Run or press F11
+Auto-Load: On startup, the system restores all previous records and finds the last used Ticket ID to prevent duplicates.
+
+###Color Handling
+The system utilizes the windows.h library to implement a setColor function, which manages terminal text colors such as Cyan, Green, and Red. These colors are applied to the console's SetConsoleTextAttribute to visually distinguish between different menu sections, transaction logs, and error messages.
+
+###How to Compile and Run
+Prerequisites
+OS: Windows (Required for windows.h and Sleep() functions).
+
+Compiler: Any C-compatible compiler (GCC/MinGW).
+
+Compilation
+Using GCC:
+
+Bash
+gcc "PNR TICKETING SYSTEM (1).c" -o PNR_System.exe
+Execution
+Run PNR_System.exe.
+
+Follow the on-screen menu to view schedules or issue tickets.
+
+Ensure the console window is wide enough to properly display the ASCII tables.
+
+###Citation
+Base Logic: Inspired by Techno Greek (2026).
+
+Time Handling: Syntaxes for real-time trip detection developed with assistance from Gemini AI.
